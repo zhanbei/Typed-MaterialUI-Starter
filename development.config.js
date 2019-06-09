@@ -1,36 +1,30 @@
 'use strict';
 
-module.exports = {
+const path = require('path');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
 	mode: 'development',
-	// Don't attempt to continue if there are any errors.
-	bail: true,
 	devtool: 'source-map',
-	entry: './src',
-	output: {
-		path: __dirname + '/dist',
-		filename: 'main.js',
+
+	// @see https://webpack.js.org/configuration/dev-server/
+	devServer: {
+		// 取消开发过程中的域名检查。
+		disableHostCheck: true,
+		historyApiFallback: true, /* support for react-router  */
+		contentBase: [
+			path.resolve('dist'),
+			path.resolve('assets'),
+		],
+		proxy: {
+			'/v1': {
+				target: 'http://zh.shuxi.site:8008',
+				changeOrigin: true,
+				// pathRewrite: {
+				// 	'^/v1': '',
+				// },
+			},
+		},
 	},
-	module: {
-		rules: [
-			{
-				// @see https://github.com/babel/babel-loader
-				test: /\.js$/,
-				exclude: /(node_modules|bower_components)/,
-				use: {
-					loader: 'babel-loader'
-				}
-			},
-			// @see https://github.com/webpack-contrib/less-loader
-			{
-				test: /\.less$/,
-				use: [{
-					loader: 'style-loader' // creates style nodes from JS strings
-				}, {
-					loader: 'css-loader' // translates CSS into CommonJS
-				}, {
-					loader: 'less-loader' // compiles Less to CSS
-				}]
-			},
-		]
-	}
-};
+});
