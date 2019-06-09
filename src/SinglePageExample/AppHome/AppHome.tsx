@@ -5,13 +5,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {R} from './resources';
-import {styles} from './styles';
+import {useStyles} from './styles';
 
 const title = R.title;
 
-export class AppHome extends React.PureComponent {
+export const AppHome = () => {
+	const classes = useStyles();
 
-	renderAppBar = () => {
+	const renderAppBar = () => {
 		return (
 			<AppBar>
 				<Toolbar>
@@ -21,23 +22,21 @@ export class AppHome extends React.PureComponent {
 		);
 	};
 
-	renderAppBody = () => {
+	const renderAppBody = () => {
 		return (
-			<div style={styles.mainContentWithPaddingHolder}>
+			<div className={classes.mainContentWithPaddingHolder}>
 				<h1>{title}</h1>
 				<p>{R.description}</p>
 			</div>
 		);
 	};
 
-	render() {
-		document.title = title;
-		return (
-			<div>
-				{this.renderAppBar()}
-				<div style={styles.toolbar}/>
-				{this.renderAppBody()}
-			</div>
-		);
-	}
-}
+	document.title = title;
+	return (
+		<div>
+			{renderAppBar()}
+			<div className={classes.toolbar}/>
+			{renderAppBody()}
+		</div>
+	);
+};
