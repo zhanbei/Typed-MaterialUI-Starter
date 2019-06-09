@@ -1,22 +1,23 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {AppHistory} from '../../resources/AppHistory';
 
-const AppHistory = require('../../resources/AppHistory');
+import {useSimpleLayoutStyles} from '../resources/styles';
 
-const muiStyles = require('./styles');
-const strings = require('./resources');
+import {R} from './resources';
 
-const title = strings.title;
+const title = R.title;
 
-class AboutPage extends React.Component {
-	renderAppBar = () => {
+export const AboutPage = () => {
+	const classes = useSimpleLayoutStyles();
+
+	const renderAppBar = () => {
 		return (
 			<AppBar>
 				<Toolbar>
@@ -29,26 +30,21 @@ class AboutPage extends React.Component {
 		);
 	};
 
-	renderAppBody = ({classes} = this.props) => {
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentWithPaddingHolder}>
 				<h1>{title}</h1>
 				<p>This is the about us page.</p>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		document.title = title;
-		const {classes} = this.props;
-		return (
-			<div>
-				{this.renderAppBar()}
-				<div className={classes.toolbar}/>
-				{this.renderAppBody()}
-			</div>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(AboutPage);
+	document.title = title;
+	return (
+		<div>
+			{renderAppBar()}
+			<div className={classes.toolbar}/>
+			{renderAppBody()}
+		</div>
+	);
+};

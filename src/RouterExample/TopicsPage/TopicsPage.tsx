@@ -1,29 +1,26 @@
 'use strict';
 
 import React from 'react';
-import {RouteComponentProps} from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import {AppHistory} from '../../resources/AppHistory';
+import {getTopicPath} from '../../resources/AppRoutes';
 
 import {useSimpleLayoutStyles} from '../resources/styles';
 
 import {R} from './resources';
 
-let titlePrefix = R.titlePrefix;
-let title = titlePrefix;
+const title = R.title;
 
-interface IProps {
-	topicId: string;
-}
-
-export const TopicPage = (props: RouteComponentProps<IProps>) => {
+export const TopicsPage = () => {
 	const classes = useSimpleLayoutStyles();
-	const {match} = props;
+
+	const goToTopicPage = (topic: string) => AppHistory.push(getTopicPath(topic));
 
 	const renderAppBar = () => {
 		return (
@@ -41,16 +38,29 @@ export const TopicPage = (props: RouteComponentProps<IProps>) => {
 	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentWithPaddingHolder}>
-				<h1>{title}</h1>
-				<div>
-					<p>This is the topic page of <span style={{fontWeight: 'bold'}}>{match.params.topicId}</span></p>
-				</div>
+				<h2>Some Topics of Pages</h2>
+				<ul>
+					<li>
+						<Button color="primary" onClick={() => goToTopicPage('rendering')}>
+							Rendering with React
+						</Button>
+					</li>
+					<li>
+						<Button color="primary" onClick={() => goToTopicPage('components')}>
+							Components
+						</Button>
+					</li>
+					<li>
+						<Button color="primary" onClick={() => goToTopicPage('props-v-state')}>
+							Props v. State
+						</Button>
+					</li>
+				</ul>
 			</div>
 		);
 	};
 
-	// Reset the title of current page.
-	document.title = title = titlePrefix + match.params.topicId;
+	document.title = title;
 	return (
 		<div>
 			{renderAppBar()}

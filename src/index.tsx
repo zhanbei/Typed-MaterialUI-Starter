@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import {appMuiTheme} from './resources/AppTheme';
-import {App} from './SinglePageExample/App';
+import {App} from './RouterExample/App';
 
 // @see https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
 

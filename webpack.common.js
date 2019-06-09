@@ -46,14 +46,6 @@ module.exports = {
 			{
 				test: /\.tsx?$/, loader: 'awesome-typescript-loader',
 			},
-			{
-				// @see https://github.com/babel/babel-loader
-				test: /\.js$/,
-				exclude: /(node_modules|bower_components)/,
-				use: {
-					loader: 'babel-loader',
-				},
-			},
 			// @see https://github.com/webpack-contrib/less-loader
 			{
 				test: /\.less$/,

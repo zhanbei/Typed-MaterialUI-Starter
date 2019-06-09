@@ -1,26 +1,28 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const AppHistory = require('../../resources/AppHistory');
+import {AppHistory} from '../../resources/AppHistory';
+import {ROUTE_ABOUT, ROUTE_TOPICS} from '../../resources/AppRoutes';
 
-const routes = require('../../resources/AppRoutes');
-const muiStyles = require('./styles');
-const strings = require('./resources');
+import {useSimpleLayoutStyles} from '../resources/styles';
 
-const title = strings.title;
+import {R} from './resources';
+
+const title = R.title;
 
 // The home page with router.
-class HomePage extends React.Component {
-	goToAboutPage = () => AppHistory.push(routes.ROUTE_ABOUT);
-	goToTopicsPage = () => AppHistory.push(routes.ROUTE_TOPICS);
+export const HomePage = () => {
+	const classes = useSimpleLayoutStyles();
 
-	renderAppBar = () => {
+	const goToAboutPage = () => AppHistory.push(ROUTE_ABOUT);
+	const goToTopicsPage = () => AppHistory.push(ROUTE_TOPICS);
+
+	const renderAppBar = () => {
 		return (
 			<AppBar>
 				<Toolbar>
@@ -30,29 +32,24 @@ class HomePage extends React.Component {
 		);
 	};
 
-	renderAppBody = ({classes} = this.props) => {
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentWithPaddingHolder}>
 				<h1>{title}</h1>
 				<div style={{margin: '20px'}}>
-					<Button color="primary" onClick={this.goToAboutPage}>About Page</Button>
-					<Button color="primary" onClick={this.goToTopicsPage}>Topics Page</Button>
+					<Button color="primary" onClick={goToAboutPage}>About Page</Button>
+					<Button color="primary" onClick={goToTopicsPage}>Topics Page</Button>
 				</div>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		document.title = title;
-		const {classes} = this.props;
-		return (
-			<div>
-				{this.renderAppBar()}
-				<div className={classes.toolbar}/>
-				{this.renderAppBody()}
-			</div>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(HomePage);
+	document.title = title;
+	return (
+		<div>
+			{renderAppBar()}
+			<div className={classes.toolbar}/>
+			{renderAppBody()}
+		</div>
+	);
+};
