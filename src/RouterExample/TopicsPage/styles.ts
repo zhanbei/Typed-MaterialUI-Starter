@@ -1,9 +1,9 @@
 'use strict';
 
-const muiStyles = require('../../resources/MuiStyles');
+const styles = require('../../resources/MuiStyles');
 
 module.exports = theme => {
-	const styles = muiStyles(theme);
+	const styles = styles(theme);
 	return {
 		toolbar: styles.toolbar,
 		mainContentWithPaddingHolder: styles.mainContentWithPaddingHolder,

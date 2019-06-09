@@ -5,25 +5,24 @@ import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const AppHistory = require('../../resources/AppHistory');
 
-const routes = require('../../resources/AppRoutes');
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+const muiStyles = require('./styles');
+const strings = require('./resources');
 
 const title = strings.title;
 
-// The home page with router.
-class HomePage extends React.Component {
-	goToAboutPage = () => AppHistory.push(routes.ROUTE_ABOUT);
-	goToTopicsPage = () => AppHistory.push(routes.ROUTE_TOPICS);
-
+class AboutPage extends React.Component {
 	renderAppBar = () => {
 		return (
 			<AppBar>
 				<Toolbar>
+					<IconButton color="inherit" onClick={() => AppHistory.goBack()}>
+						<ArrowBackIcon/>
+					</IconButton>
 					<Typography variant="h6" color="inherit" style={{flex: 1}}>{title}</Typography>
 				</Toolbar>
 			</AppBar>
@@ -34,10 +33,7 @@ class HomePage extends React.Component {
 		return (
 			<div className={classes.mainContentWithPaddingHolder}>
 				<h1>{title}</h1>
-				<div style={{margin: '20px'}}>
-					<Button color="primary" onClick={this.goToAboutPage}>About Page</Button>
-					<Button color="primary" onClick={this.goToTopicsPage}>Topics Page</Button>
-				</div>
+				<p>This is the about us page.</p>
 			</div>
 		)
 	};
@@ -55,4 +51,4 @@ class HomePage extends React.Component {
 	}
 }
 
-export default withStyles(muiStyles)(HomePage);
+export default withStyles(muiStyles)(AboutPage);

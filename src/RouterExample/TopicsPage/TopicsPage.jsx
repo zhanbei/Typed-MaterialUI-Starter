@@ -12,8 +12,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 const AppHistory = require('../../resources/AppHistory');
 
 const routes = require('../../resources/AppRoutes');
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+const muiStyles = require('./styles');
+const strings = require('./resources');
 
 const title = strings.title;
 
