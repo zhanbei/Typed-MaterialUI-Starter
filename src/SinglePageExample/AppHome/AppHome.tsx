@@ -1,17 +1,16 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import {R} from './resources';
+import {styles} from './styles';
 
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+const title = R.title;
 
-const title = strings.title;
+export class AppHome extends React.PureComponent {
 
-class AppHome extends React.Component {
 	renderAppBar = () => {
 		return (
 			<AppBar>
@@ -22,26 +21,23 @@ class AppHome extends React.Component {
 		);
 	};
 
-	renderAppBody = ({classes} = this.props) => {
+	renderAppBody = () => {
 		return (
-			<div className={classes.mainContentWithPaddingHolder}>
+			<div style={styles.mainContentWithPaddingHolder}>
 				<h1>{title}</h1>
-				<p>{strings.description}</p>
+				<p>{R.description}</p>
 			</div>
-		)
+		);
 	};
 
 	render() {
 		document.title = title;
-		const {classes} = this.props;
 		return (
 			<div>
 				{this.renderAppBar()}
-				<div className={classes.toolbar}/>
+				<div style={styles.toolbar}/>
 				{this.renderAppBody()}
 			</div>
 		);
 	}
 }
-
-export default withStyles(muiStyles)(AppHome);

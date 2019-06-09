@@ -1,8 +1,11 @@
 'use strict';
 
+import {Theme} from '@material-ui/core/styles';
+import {appMuiTheme} from './AppTheme';
+
 const flexColumn = {display: 'flex', flexFlow: 'column nowrap'};
 
-module.exports = theme => {
+export const useAppStyles = (theme: Theme) => {
 	const unit = theme.spacing;
 	return {
 		// The style for each standalone single page, which usually has a app bar,
@@ -32,3 +35,5 @@ module.exports = theme => {
 		mainContentPaperHolder: {padding: unit(2), margin: unit(2) + 'px 0'},
 	};
 };
+
+export const _styles = useAppStyles(appMuiTheme);

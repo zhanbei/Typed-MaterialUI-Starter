@@ -2,7 +2,7 @@
   "name": "react-materialui-router-webpack-babel-npm-start-here",
   "version": "0.8.0",
   "description": "A basic front-end project integrated with React, MaterialUI, ReactRouter, Webpack, Babel, NPM.",
-  "main": "src/index.js",
+  "main": "src/index.tsx",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js --port 8000 --hot --host 0.0.0.0",

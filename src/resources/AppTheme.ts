@@ -1,7 +1,9 @@
 'use strict';
 
+import {createMuiTheme, Theme} from '@material-ui/core/styles';
+
 // @see https://material-ui-next.com/customization/themes/
-module.exports = {
+export const appMuiTheme: Theme = createMuiTheme({
 	palette: {
 		// @see https://material.io/color/#!/?view.left=0&view.right=0&primary.color=AA00FF&primary.text.color=ffffff&secondary.color=827717&secondary.text.color=ffffff
 		primary: {
@@ -18,9 +20,7 @@ module.exports = {
 		},
 	},
 	// @see https://material-ui.com/style/typography/#migration-to-typography-v2
-	typography: {
-		useNextVariants: true,
-	},
+	// typography: {},
 	overrides: {
 		MuiButton: {
 			root: {
@@ -30,4 +30,4 @@ module.exports = {
 			},
 		},
 	},
-};
+});
