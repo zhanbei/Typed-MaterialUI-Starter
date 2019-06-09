@@ -26,7 +26,7 @@
   },
   "awesomeTypescriptLoaderOptions": {
 	"useBabel": true,
-	"babelCore": "babel-core"
+	"babelCore": "@babel/core"
   },
   "exclude": [
 	"node_modules",
