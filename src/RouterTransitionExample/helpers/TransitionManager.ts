@@ -1,6 +1,6 @@
 'use strict';
 
-const AppHistory = require('../../resources/AppHistory');
+import {ACTION_POP, ACTION_PUSH, ACTION_UNKNOWN, AppHistory, IHashChangeEvent} from '../../resources/AppHistory';
 
 const TRANSITION_IN_OR_OUT = 'transition-inout-style';
 const TRANSITION_DEFAULT = 'fade';
@@ -30,18 +30,18 @@ sheet.innerHTML = stylePushIn;
 let isInoutStyleCurrentlyPushingIn = true;
 document.head.appendChild(sheet);
 
-let nextAction = AppHistory.ACTION_UNKNOWN;
+let nextAction = ACTION_UNKNOWN;
 
 // Reset the transition style of INOUT on action changed.
-AppHistory.addOnHashChangeListener((event) => {
+AppHistory.addOnHashChangeListener((event: IHashChangeEvent) => {
 	nextAction = event.action;
 	switch (event.action) {
-		case AppHistory.ACTION_PUSH:
+		case ACTION_PUSH:
 			if (isInoutStyleCurrentlyPushingIn) {return;}
 			sheet.innerHTML = stylePushIn;
 			isInoutStyleCurrentlyPushingIn = true;
 			break;
-		case AppHistory.ACTION_POP:
+		case ACTION_POP:
 			if (isInoutStyleCurrentlyPushingIn) {
 				sheet.innerHTML = stylePopOut;
 				isInoutStyleCurrentlyPushingIn = false;
@@ -54,9 +54,9 @@ AppHistory.addOnHashChangeListener((event) => {
 });
 
 // Get the css class name for the next transition.
-exports.getNextTransitionClassName = () => {
-	if (nextAction === AppHistory.ACTION_PUSH || nextAction === AppHistory.ACTION_POP) {
-		nextAction = AppHistory.ACTION_UNKNOWN;
+export const getNextTransitionClassName = () => {
+	if (nextAction === ACTION_PUSH || nextAction === ACTION_POP) {
+		nextAction = ACTION_UNKNOWN;
 		return TRANSITION_IN_OR_OUT;
 	} else {
 		console.warn('The current status is unknown and will use the default transition style.');

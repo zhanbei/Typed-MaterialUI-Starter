@@ -1,34 +1,31 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import LayoutSimplePage from "../../components/LayoutSimplePage/LayoutSimplePage";
+import {LayoutSimplePage} from '../../components/LayoutSimplePage/LayoutSimplePage';
+import {useTransitionPageStyles} from '../resources/styles';
+import {R} from './resources';
 
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+const title = R.title;
 
-const title = strings.title;
+export const AboutPage = () => {
+	const classes = useTransitionPageStyles();
 
-class AboutPage extends React.Component {
-	renderAppBody = ({classes} = this.props) => {
+	document.title = title;
+
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentPaddingHolder}>
 				<h1>{title}</h1>
 				<p>This is the about us page.</p>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		document.title = title;
-		return (
-			<LayoutSimplePage
-				title={title}
-				goBackOnIconExitClicked={true}
-				domMainContent={this.renderAppBody()}
-			/>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(AboutPage);
+	return (
+		<LayoutSimplePage
+			title={title}
+			goBackOnIconExitClicked={true}
+			domMainContent={renderAppBody()}
+		/>
+	);
+};

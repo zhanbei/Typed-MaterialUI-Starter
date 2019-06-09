@@ -1,18 +1,19 @@
 'use strict';
 
-import React from 'react'
-import {Route, Router, Switch, withRouter} from 'react-router-dom'
-import {Transition, CSSTransition, TransitionGroup} from 'react-transition-group';
-import './resources/transition-fade-inout.less';
-import HomePage from './HomePage/HomePage';
-import AboutPage from './AboutPage/AboutPage';
-import TopicsPage from './TopicsPage/TopicsPage';
-import TopicPage from './TopicPage/TopicPage';
+import React from 'react';
+import {Route, Router, Switch, withRouter} from 'react-router-dom';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-const routes = require('../resources/AppRoutes');
-const AppHistory = require('../resources/AppHistory');
-const mAppBrowserHistory = AppHistory.getBrowserHistory();
-const TransitionManager = require('./helpers/TransitionManager');
+import {AppHistory} from '../resources/AppHistory';
+import * as  routes from '../resources/AppRoutes';
+
+import {getNextTransitionClassName} from './helpers/TransitionManager';
+import './resources/transition-fade-inout.less';
+
+import {HomePage} from './HomePage/HomePage';
+import {AboutPage} from './AboutPage/AboutPage';
+import {TopicsPage} from './TopicsPage/TopicsPage';
+import {TopicPage} from './TopicPage/TopicPage';
 
 // @see https://reactcommunity.org/react-transition-group/
 // @see https://reacttraining.com/react-router/web/example/animated-transitions
@@ -21,7 +22,7 @@ const RoutesWithTransition = withRouter(({location}) => (
 	<TransitionGroup>
 		<CSSTransition
 			key={location.key}
-			classNames={TransitionManager.getNextTransitionClassName()}
+			classNames={getNextTransitionClassName()}
 			timeout={500}
 		>
 			<Switch location={location}>
@@ -36,14 +37,12 @@ const RoutesWithTransition = withRouter(({location}) => (
 
 // App entrance used browser router with react-router.
 // @see https://reacttraining.com/react-router/web/example/basic
-class App extends React.Component {
+export class App extends React.PureComponent {
 	render() {
 		return (
-			<Router history={mAppBrowserHistory}>
+			<Router history={AppHistory.getBrowserHistory()}>
 				<RoutesWithTransition/>
 			</Router>
-		)
+		);
 	}
 }
-
-export default App;

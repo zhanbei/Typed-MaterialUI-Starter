@@ -8,6 +8,10 @@ const EventListener = require('../../utils/EventListener');
 const mBrowserHistory = createBrowserHistory();
 const mHistory = mBrowserHistory;
 
+export interface IHashChangeEvent {
+	action: 'PUSH' | 'POP' | 'REPLACE' | 'UNKNOWN'
+}
+
 const mEventListener = new EventListener();
 export const ACTION_PUSH = 'PUSH';
 export const ACTION_POP = 'POP';
@@ -15,7 +19,7 @@ export const ACTION_REPLACE = 'REPLACE';
 export const ACTION_UNKNOWN = 'UNKNOWN';
 // Add listeners which will be triggered when the location is going to change.
 // Currently, only the manual change of the location is supported.
-const addOnHashChangeListener = (...params: string[]) => mEventListener.addListener(...params);
+const addOnHashChangeListener = (...params: any[]) => mEventListener.addListener(...params);
 
 /* Get the browser history instance. */
 

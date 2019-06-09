@@ -1,56 +1,55 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import LayoutSimplePage from "../../components/LayoutSimplePage/LayoutSimplePage";
 
-const AppHistory = require('../../resources/AppHistory');
+import {LayoutSimplePage} from '../../components/LayoutSimplePage/LayoutSimplePage';
+import {AppHistory} from '../../resources/AppHistory';
+import {getTopicPath} from '../../resources/AppRoutes';
 
-const routes = require('../../resources/AppRoutes');
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+import {useTransitionPageStyles} from '../resources/styles';
 
-const title = strings.title;
+import {R} from './resources';
 
-class TopicsPage extends React.Component {
-	goToTopicPage = (topic) => AppHistory.push(routes.getTopicPath(topic));
+const title = R.title;
 
-	renderAppBody = ({classes} = this.props) => {
+export const TopicsPage = () => {
+	const classes = useTransitionPageStyles();
+
+	document.title = title;
+
+	const goToTopicPage = (topic: string) => AppHistory.push(getTopicPath(topic));
+
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentPaddingHolder}>
 				<h2>Some Topics of Pages</h2>
 				<ul>
 					<li>
-						<Button color="primary" onClick={() => this.goToTopicPage('rendering')}>
+						<Button color="primary" onClick={() => goToTopicPage('rendering')}>
 							Rendering with React
 						</Button>
 					</li>
 					<li>
-						<Button color="primary" onClick={() => this.goToTopicPage('components')}>
+						<Button color="primary" onClick={() => goToTopicPage('components')}>
 							Components
 						</Button>
 					</li>
 					<li>
-						<Button color="primary" onClick={() => this.goToTopicPage('props-v-state')}>
+						<Button color="primary" onClick={() => goToTopicPage('props-v-state')}>
 							Props v. State
 						</Button>
 					</li>
 				</ul>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		document.title = title;
-		return (
-			<LayoutSimplePage
-				title={title}
-				goBackOnIconExitClicked={true}
-				domMainContent={this.renderAppBody()}
-			/>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(TopicsPage);
+	return (
+		<LayoutSimplePage
+			title={title}
+			goBackOnIconExitClicked={true}
+			domMainContent={renderAppBody()}
+		/>
+	);
+};

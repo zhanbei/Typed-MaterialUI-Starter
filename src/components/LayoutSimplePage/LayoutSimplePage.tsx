@@ -2,32 +2,29 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
-import UniversalAppBar from "../UniversalAppBar/UniversalAppBar";
+import {UniversalAppBar} from '../UniversalAppBar/UniversalAppBar';
+import {useStyles} from './styles';
 
-const muiStyles = require('./mui-styles');
-
-class LayoutSimplePage extends React.Component {
-	render() {
-		const {classes, title, goBackOnIconExitClicked, onIconExitClicked, domMainContent} = this.props;
-		return (
-			<div className={classes.pageHolder}>
-				<UniversalAppBar
-					title={title}
-					onIconExitClicked={onIconExitClicked}
-					goBackOnIconExitClicked={goBackOnIconExitClicked}
-				/>
-				<div className={classes.bodyHolder}>
-					<div className={classes.contentHolder}>
-						<div className={classes.mainContentHolder}>
-							{domMainContent}
-						</div>
+export const LayoutSimplePage = (props: LayoutSimplePage.propTypes) => {
+	const classes = useStyles();
+	const {title, goBackOnIconExitClicked, onIconExitClicked, domMainContent} = props;
+	return (
+		<div className={classes.pageHolder}>
+			<UniversalAppBar
+				title={title}
+				onIconExitClicked={onIconExitClicked}
+				goBackOnIconExitClicked={goBackOnIconExitClicked}
+			/>
+			<div className={classes.bodyHolder}>
+				<div className={classes.contentHolder}>
+					<div className={classes.mainContentHolder}>
+						{domMainContent}
 					</div>
 				</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 LayoutSimplePage.propTypes = {
 	/* Extract values from ...UniversalAppBar.propTypes,*/
@@ -38,5 +35,3 @@ LayoutSimplePage.propTypes = {
 	/* The end of the ...UniversalAppBar.propTypes. */
 	domMainContent: PropTypes.node.isRequired,
 };
-
-export default withStyles(muiStyles)(LayoutSimplePage);

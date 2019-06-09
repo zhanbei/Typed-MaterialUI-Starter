@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = {
+export const R = {
 	title: 'About - React MaterialUI ReactRouter Webpack Babel NPM Start HERE',
 };

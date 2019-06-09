@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = {
+export const R = {
 	titlePrefix: 'Topic Page of ',
 };

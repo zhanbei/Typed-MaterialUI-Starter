@@ -1,44 +1,43 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import LayoutSimplePage from "../../components/LayoutSimplePage/LayoutSimplePage";
 
-const AppHistory = require('../../resources/AppHistory');
+import {LayoutSimplePage} from '../../components/LayoutSimplePage/LayoutSimplePage';
+import {AppHistory} from '../../resources/AppHistory';
+import {ROUTE_ABOUT, ROUTE_TOPICS} from '../../resources/AppRoutes';
 
-const routes = require('../../resources/AppRoutes');
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+import {useTransitionPageStyles} from '../resources/styles';
 
-const title = strings.title;
+import {R} from './resources';
+
+const title = R.title;
 
 // The home page with router.
-class HomePage extends React.Component {
-	goToAboutPage = () => AppHistory.push(routes.ROUTE_ABOUT);
-	goToTopicsPage = () => AppHistory.push(routes.ROUTE_TOPICS);
+export const HomePage = () => {
+	const classes = useTransitionPageStyles();
 
-	renderAppBody = ({classes} = this.props) => {
+	document.title = title;
+
+	const goToAboutPage = () => AppHistory.push(ROUTE_ABOUT);
+	const goToTopicsPage = () => AppHistory.push(ROUTE_TOPICS);
+
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentPaddingHolder}>
 				<h1>{title}</h1>
 				<div>
-					<Button color="primary" onClick={this.goToAboutPage}>About Page</Button>
-					<Button color="primary" onClick={this.goToTopicsPage}>Topics Page</Button>
+					<Button color="primary" onClick={goToAboutPage}>About Page</Button>
+					<Button color="primary" onClick={goToTopicsPage}>Topics Page</Button>
 				</div>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		document.title = title;
-		return (
-			<LayoutSimplePage
-				title={title}
-				domMainContent={this.renderAppBody()}
-			/>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(HomePage);
+	return (
+		<LayoutSimplePage
+			title={title}
+			domMainContent={renderAppBody()}
+		/>
+	);
+};

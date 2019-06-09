@@ -1,17 +1,25 @@
 'use strict';
 
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
-import LayoutSimplePage from "../../components/LayoutSimplePage/LayoutSimplePage";
+import {RouteComponentProps} from 'react-router';
+import {LayoutSimplePage} from '../../components/LayoutSimplePage/LayoutSimplePage';
 
-const muiStyles = require('./mui-styles');
-const strings = require('./strings');
+import {useTransitionPageStyles} from '../resources/styles';
+import {R} from './resources';
 
-let titlePrefix = strings.titlePrefix;
+interface IProps {
+	topicId: string;
+}
+
+let titlePrefix = R.titlePrefix;
 let title = titlePrefix;
 
-class TopicPage extends React.Component {
-	renderAppBody = ({classes, match} = this.props) => {
+export const TopicPage = (props: RouteComponentProps<IProps>) => {
+	const classes = useTransitionPageStyles();
+	const {match} = props;
+
+	document.title = title;
+	const renderAppBody = () => {
 		return (
 			<div className={classes.mainContentPaddingHolder}>
 				<h1>{title}</h1>
@@ -19,21 +27,16 @@ class TopicPage extends React.Component {
 					<p>This is the topic page of <span style={{fontWeight: 'bold'}}>{match.params.topicId}</span></p>
 				</div>
 			</div>
-		)
+		);
 	};
 
-	render() {
-		const {match} = this.props;
-		// Reset the title of current page.
-		document.title = title = titlePrefix + match.params.topicId;
-		return (
-			<LayoutSimplePage
-				title={title}
-				goBackOnIconExitClicked={true}
-				domMainContent={this.renderAppBody()}
-			/>
-		);
-	}
-}
-
-export default withStyles(muiStyles)(TopicPage);
+	// Reset the title of current page.
+	document.title = title = titlePrefix + match.params.topicId;
+	return (
+		<LayoutSimplePage
+			title={title}
+			goBackOnIconExitClicked={true}
+			domMainContent={renderAppBody()}
+		/>
+	);
+};

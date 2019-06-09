@@ -2,45 +2,45 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-const AppHistory = require('../../resources/AppHistory');
-const AppRoutes = require('../../resources/AppRoutes');
+import {AppHistory} from '../../resources/AppHistory';
+import {ROUTE_HOME} from '../../resources/AppRoutes';
 
-const muiStyles = require('./mui-styles');
+import {useStyles} from './styles';
 
-class UniversalAppBar extends React.Component {
+export const UniversalAppBar = (props: UniversalAppBar.propTypes) => {
+	const classes = useStyles();
+	const {title, goBackOnIconExitClicked} = props;
+	let {onIconExitClicked} = props;
 
-	goBackOrToSiteHomePage = () => {
+	const goBackOrToSiteHomePage = () => {
 		// Do nothing if the current page is the #AppHome page.
-		if (location.pathname === AppRoutes.ROUTE_HOME) {return;}
-		AppHistory.goBackOrPush(AppRoutes.ROUTE_HOME);
+		if (location.pathname === ROUTE_HOME) {return;}
+		AppHistory.goBackOrPush(ROUTE_HOME);
 	};
 
-	renderLeftIcon = ({goBackOnIconExitClicked, onIconExitClicked} = this.props) => {
-		if (!onIconExitClicked && goBackOnIconExitClicked) {onIconExitClicked = this.goBackOrToSiteHomePage;}
+	const renderLeftIcon = () => {
+		if (!onIconExitClicked && goBackOnIconExitClicked) {onIconExitClicked = goBackOrToSiteHomePage;}
 		if (onIconExitClicked) {
 			return (<IconButton color="inherit" onClick={onIconExitClicked}><ArrowBackIcon/></IconButton>);
 		}
+		return undefined;
 	};
 
-	render() {
-		const {classes, title} = this.props;
-		return (
-			<AppBar position={'static'} className={classes.appBar}>
-				<Toolbar>
-					{this.renderLeftIcon()}
-					<Typography variant="h6" color="inherit" style={{flex: 1}}>{title}</Typography>
-				</Toolbar>
-			</AppBar>
-		);
-	}
-}
+	return (
+		<AppBar position={'static'} className={classes.appBar}>
+			<Toolbar>
+				{renderLeftIcon()}
+				<Typography variant="h6" color="inherit" style={{flex: 1}}>{title}</Typography>
+			</Toolbar>
+		</AppBar>
+	);
+};
 
 UniversalAppBar.propTypes = {
 	goBackOnIconExitClicked: PropTypes.bool,
@@ -48,5 +48,3 @@ UniversalAppBar.propTypes = {
 	onIconExitClicked: PropTypes.func,
 	title: PropTypes.string.isRequired,
 };
-
-export default withStyles(muiStyles)(UniversalAppBar);
