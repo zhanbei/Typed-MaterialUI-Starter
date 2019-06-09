@@ -3,7 +3,7 @@
 const flexColumn = {display: 'flex', flexFlow: 'column nowrap'};
 
 module.exports = theme => {
-	const unit = theme.spacing.unit;
+	const unit = theme.spacing;
 	return {
 		// The style for each standalone single page, which usually has a app bar,
 		// a optional left navigation, and a body with main content.
@@ -25,10 +25,10 @@ module.exports = theme => {
 		// @see https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
 		mainContentHolder: {margin: '0 auto', maxWidth: '960px'},
 		// @obsolete IMPORTANT THE STYLE IS OBSOLETE NOW, AND MAY BE REMOVED ANYTIME FROM NOW ON.
-		mainContentWithPaddingHolder: {margin: '0 auto', maxWidth: '960px', padding: 2 * unit},
+		mainContentWithPaddingHolder: {margin: '0 auto', maxWidth: '960px', padding: unit(2)},
 		// A style with padding around for the #mainContent.
-		mainContentPaddingHolder: {padding: 2 * unit},
+		mainContentPaddingHolder: {padding: unit(2)},
 		// A style with 2-unit padding around and 2-unit vertical margin for the #mainContent, which is usually for a #Paper.
-		mainContentPaperHolder: {padding: unit * 2, margin: (unit * 2) + 'px 0'},
+		mainContentPaperHolder: {padding: unit(2), margin: unit(2) + 'px 0'},
 	};
 };
