@@ -18,8 +18,8 @@ module.exports = merge(common, {
 			path.resolve('assets'),
 		],
 		proxy: {
-			'/v1': {
-				target: 'http://zh.shuxi.site:8008',
+			'/api': {
+				target: 'http://loxal.me:8123',
 				changeOrigin: true,
 				// pathRewrite: {
 				// 	'^/v1': '',
